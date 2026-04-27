@@ -814,7 +814,7 @@ void GSDevice::SortMultiStretchRects(MultiStretchRect* rects, u32 num_rects)
 {
 	// Depending on num_rects, insertion sort may be better here.
 	std::sort(rects, rects + num_rects, [](const MultiStretchRect& lhs, const MultiStretchRect& rhs) {
-		return lhs.src < rhs.src || lhs.linear < rhs.linear;
+		return (reinterpret_cast<uintptr_t>(lhs.src) | lhs.linear) < (reinterpret_cast<uintptr_t>(rhs.src) | rhs.linear);
 	});
 }
 
